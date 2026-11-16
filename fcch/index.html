@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Many Roads, One Home</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="../favicon.ico" sizes="32x32">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta name="robots" content="noindex, nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  @font-face { font-family: "Cormorant Garamond"; src: url("../assets/CormorantGaramond-SemiBold.ttf"); font-weight: 600; font-style: normal; }
+  @font-face { font-family: "Cormorant Garamond"; src: url("../assets/CormorantGaramond-MediumItalic.ttf"); font-weight: 500; font-style: italic; }
+  :root {
+    --parchment: #F5F0E6; --evergreen: #1E3B34; --clay: #B4532F; --fieldstone: #6B6457; --claylight: #D98A66;
+    --tint: #E6E4D8; --line: #D9D2C3;
+  }
+  @page { size: 8.5in 11in; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #8a867c; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: "Source Sans 3", Arial, sans-serif; color: var(--evergreen); font-size: 11pt; line-height: 1.5; }
+  .page { width: 8.5in; height: 11in; margin: 0 auto 0.25in; background: var(--parchment); position: relative; overflow: hidden; padding: 0.7in 0.8in 1in; page-break-after: always; break-after: page; }
+  @media print { html, body { background: var(--parchment); } .page { margin: 0; } }
+  h1, h2, h3, .serif { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; letter-spacing: -0.005em; }
+  h1 { font-size: 54px; line-height: 1.02; margin: 0 0 10px; }
+  h2 { font-size: 36px; line-height: 1.08; margin: 0 0 12px; }
+  h3 { font-size: 24px; line-height: 1.15; margin: 18px 0 6px; }
+  p { margin: 0 0 10px; }
+  .eyebrow { font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; color: var(--fieldstone); margin-bottom: 10px; }
+  .eyebrow.clay { color: var(--clay); }
+  .lead { font-size: 13pt; line-height: 1.5; }
+  .muted { color: var(--fieldstone); }
+  .verse { font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; font-weight: 500; font-size: 22px; line-height: 1.3; margin: 14px 0 16px; padding-left: 16px; border-left: 3px solid var(--line); }
+  .verse cite { display: block; font-family: "Source Sans 3", Arial, sans-serif; font-style: normal; font-size: 9.5pt; color: var(--fieldstone); margin-top: 4px; letter-spacing: 0.04em; }
+  .stone { display: inline-block; width: 13px; height: 8px; background: var(--clay); border-radius: 50%; transform: rotate(-8deg); margin-right: 8px; vertical-align: middle; }
+  ul.stones { list-style: none; padding: 0; margin: 6px 0 12px; }
+  ul.stones li { padding-left: 22px; position: relative; margin-bottom: 6px; }
+  ul.stones li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 11px; height: 7px; background: var(--evergreen); border-radius: 50%; transform: rotate(-8deg); }
+  .footer { position: absolute; left: 0.8in; right: 0.8in; bottom: 0.45in; display: flex; align-items: center; gap: 10px; font-size: 8.5pt; color: var(--fieldstone); border-top: 1px solid var(--line); padding-top: 8px; }
+  .footer img { height: 24px; }
+  .footer .pg { margin-left: auto; }
+  figure { margin: 0; }
+  figcaption { font-size: 9pt; color: var(--fieldstone); margin-top: 4px; line-height: 1.35; }
+  .grid { display: grid; gap: 10px; }
+  .grid img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block; border-radius: 3px; }
+  .grid.g3 { grid-template-columns: repeat(3, 1fr); }
+  .grid.g2 { grid-template-columns: repeat(2, 1fr); }
+  .photo img { width: 100%; display: block; border-radius: 3px; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+
+  /* cover */
+  .cover { padding-top: 0.6in; }
+  .cover .logo { height: 40px; display: block; }
+  .cover .titleblock { margin-top: 0.45in; }
+  .cover h1 { font-size: 66px; }
+  .cover .subtitle { font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; font-weight: 500; font-size: 24px; line-height: 1.3; color: var(--evergreen); margin: 0 0 6px; }
+  .cover .map { position: absolute; left: 0; right: 0; bottom: 1.05in; }
+  .cover .map img { width: 100%; display: block; }
+  .cover .internal { position: absolute; left: 0.8in; right: 0.8in; bottom: 0.45in; font-size: 8.5pt; color: var(--fieldstone); border-top: 1px solid var(--line); padding-top: 8px; }
+
+  /* stats */
+  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 26px; margin-top: 18px; }
+  .stat { border-top: 1px solid var(--line); padding-top: 10px; }
+  .stat .n { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; font-size: 46px; line-height: 1; }
+  .stat .n.clay { color: var(--clay); }
+  .stat .l { font-weight: 600; font-size: 11pt; margin-top: 4px; }
+  .stat .m { font-size: 10pt; color: var(--fieldstone); line-height: 1.4; margin-top: 2px; }
+  .stat.wide { grid-column: span 2; }
+
+  /* bars */
+  .bars { margin: 10px 0 14px; }
+  .bar { display: grid; grid-template-columns: 190px 1fr; align-items: center; gap: 10px; margin-bottom: 7px; font-size: 10pt; }
+  .bar .label { text-align: right; }
+  .bar .track { position: relative; height: 20px; }
+  .bar .fill { height: 20px; background: var(--evergreen); border-radius: 2px; }
+  .bar .val { position: absolute; top: 0; font-weight: 600; line-height: 20px; font-size: 10pt; }
+  table.rhythm { width: 100%; border-collapse: collapse; font-size: 10pt; margin: 8px 0 12px; }
+  table.rhythm th { text-align: left; font-weight: 600; color: var(--fieldstone); font-size: 9pt; letter-spacing: 0.08em; text-transform: uppercase; border-bottom: 1.5px solid var(--evergreen); padding: 5px 8px 5px 0; }
+  table.rhythm td { border-bottom: 1px solid var(--line); padding: 6px 8px 6px 0; vertical-align: top; }
+
+  /* seasons */
+  .season { display: grid; grid-template-columns: 1.05in 1fr; gap: 18px; margin-bottom: 14px; }
+  .season .tag { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; font-size: 26px; line-height: 1.05; }
+  .season .tag small { display: block; font-family: "Source Sans 3", Arial, sans-serif; font-weight: 600; font-size: 9pt; letter-spacing: 0.14em; color: var(--fieldstone); margin-top: 6px; text-transform: uppercase; }
+  .season p { font-size: 10.6pt; }
+
+  /* dark back page */
+  .dark { background: var(--evergreen); color: var(--parchment); }
+  .dark h2 { color: var(--parchment); }
+  .dark .eyebrow { color: var(--claylight); }
+  .dark .prayer { columns: 2; column-gap: 34px; font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; font-weight: 500; font-size: 14.5px; line-height: 1.38; }
+  .dark .prayer p { margin: 0 0 9px; break-inside: avoid; }
+  .dark .backfoot { position: absolute; left: 0.8in; right: 0.8in; bottom: 0.5in; display: flex; align-items: flex-end; justify-content: space-between; font-size: 9pt; color: #C9C3B4; }
+  .dark .backfoot img { height: 36px; }
+  .poem { font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; font-weight: 500; font-size: 18px; line-height: 1.24; }
+  .poem p { margin: 0 0 11px; }
+  .sig { margin-top: 14px; }
+  .sig .names { font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; font-size: 24px; }
+
+  .closing { display:flex; flex-direction:column; padding-top:0.75in; }
+  .closing .teamphoto { margin: 18px 0 14px; height: 4.6in; border: 2px dashed rgba(245,240,230,0.45); border-radius: 6px; display:flex; align-items:center; justify-content:center; color:#C9C3B4; font-size:11pt; letter-spacing:0.08em; text-transform:uppercase; }
+  .closing .teamphoto.has-photo { height:auto; aspect-ratio:3/2; border:none; }
+  .closing .teamphoto img { width:100%; height:100%; object-fit:cover; border-radius:6px; display:block; }
+  .closing .names { font-family:"Cormorant Garamond", Georgia, serif; font-weight:600; font-size:24px; line-height:1.3; color: var(--parchment); }
+  .closing .role { font-size:10.5pt; color:#C9C3B4; margin-top:4px; }
+  .closing .closeverse { font-family:"Cormorant Garamond", Georgia, serif; font-style:italic; font-weight:500; font-size:26px; color: var(--claylight); margin-top:26px; }
+  .closing .closeverse cite { display:block; font-family:"Source Sans 3", Arial, sans-serif; font-style:normal; font-size:9.5pt; color:#C9C3B4; margin-top:4px; letter-spacing:0.04em; }
+
+  /* ---------- WEB OVERRIDES ---------- */
+  html, body { background: var(--parchment); }
+  body { font-size: 18px; line-height: 1.6; }
+  .page { width: auto; height: auto; max-width: 860px; margin: 0 auto; padding: 72px 28px; overflow: visible; page-break-after: auto; break-after: auto; background: transparent; position: relative; }
+  .page + .page { border-top: 1px solid var(--line); }
+  .topnav { position: sticky; top: 0; z-index: 10; background: rgba(245,240,230,0.94); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; padding: 12px 24px; }
+  .topnav .brand img { height: 32px; display: block; }
+  .topnav .links { display: flex; gap: 22px; font-size: 15px; font-weight: 600; }
+  .topnav .links a { color: var(--evergreen); text-decoration: none; }
+  .topnav .links a:hover { color: var(--clay); }
+  h1 { font-size: 72px; } h2 { font-size: 44px; } h3 { font-size: 28px; }
+  .lead { font-size: 21px; }
+  .verse { font-size: 28px; }
+  .cover { padding-top: 64px; text-align: left; }
+  .cover .logo { display: none; }
+  .cover .titleblock { margin-top: 0; }
+  .cover h1 { font-size: 88px; }
+  .cover .subtitle { font-size: 30px; max-width: 720px; }
+  .cover .map { position: static; margin: 28px -28px 0; }
+  .stats { gap: 22px 40px; }
+  .stat .n { font-size: 58px; }
+  .stat .l { font-size: 18px; } .stat .m { font-size: 16px; }
+  .season { grid-template-columns: 150px 1fr; gap: 28px; }
+  .season p { font-size: 18px; }
+  .bar { grid-template-columns: 260px 1fr; font-size: 16px; }
+  .bar .track, .bar .fill { height: 26px; } .bar .val { line-height: 26px; font-size: 15px; }
+  table.rhythm { font-size: 16px; }
+  figcaption { font-size: 14px; }
+  .grid { gap: 14px; }
+  .dark { max-width: none; padding-left: max(28px, calc((100% - 804px) / 2)); padding-right: max(28px, calc((100% - 804px) / 2)); }
+  .dark.page { background: var(--evergreen); }
+  .closing .teamphoto { height: 460px; }
+  .closing .names { font-size: 30px; }
+  .closing .closeverse { font-size: 32px; }
+  .dark .backfoot { position: static; margin-top: 48px; }
+  .dark .backfoot img { height: 40px; }
+  .photo img { height: auto; }
+  html, body { overflow-x: hidden; }
+  @media (max-width: 760px) {
+    body { font-size: 17px; }
+    .topnav .links { display: none; }
+    .page { padding: 48px 18px; }
+    h1, .cover h1 { font-size: 56px; } h2 { font-size: 34px; }
+    .cover .subtitle { font-size: 24px; }
+    .cover .map { margin: 20px -18px 0; }
+    .stats { grid-template-columns: 1fr; }
+    .stat.wide { grid-column: auto; }
+    .two-col { grid-template-columns: 1fr !important; }
+    .season { grid-template-columns: 1fr; gap: 6px; }
+    .grid.g3 { grid-template-columns: repeat(2, 1fr); }
+    .bar { grid-template-columns: 1fr; gap: 2px; } .bar .label { text-align: left; }
+    table.rhythm { font-size: 14px; }
+    .closing .teamphoto { height: 260px; }
+    .dark .backfoot { flex-direction: column; align-items: flex-start; gap: 12px; }
+    figure.photo { margin-left: 0 !important; margin-right: 0 !important; }
+  }
+</style>
+</head>
+<body>
+<nav class="topnav">
+  <a href="#top" class="brand"><img src="../assets/rwr-logo-horizontal-color.png" alt="Rooted with Roofs"></a>
+  <div class="links"><a href="#glance">At a glance</a><a href="#story">Our story</a><a href="#this-year">This past year</a><a href="#together">Life together</a><a href="#thanks">Thank you</a><a href="#ahead">The road ahead</a></div>
+</nav>
+
+<!-- 1. COVER -->
+<section id="top" class="page cover">
+  <img class="logo" src="../assets/rwr-logo-horizontal-color.png" alt="Rooted with Roofs">
+  <div class="titleblock">
+    <div class="eyebrow clay">For the FCCH Missions Committee · November 2026</div>
+    <h1>Many roads, one home</h1>
+    <p class="subtitle">What God has done among our immigrant neighbors in Denver through Rooted with Roofs and your faithful partnership</p>
+    <p class="muted" style="font-size:10.5pt;margin-bottom:0">December 2022 – November 2026</p>
+  </div>
+  <div class="map"><img src="../assets/map-americas.jpg" alt="Map of the Americas with lines from 635 hometowns leading to Denver"></div>
+</section>
+
+<!-- 2. LETTER -->
+<section id="letter" class="page">
+  <div class="eyebrow">A letter to our partners</div>
+  <h2>Dear FCCH Missions Committee,</h2>
+  <p class="lead">Since 2008, First Congregational Church of Hamilton has sent us to Denver with your prayers and support, to minister among our immigrant neighbors. For eighteen years you have stood with us, and we are more grateful than we can say.</p>
+  <p>Four years ago, on December 4, 2022, 60 Venezuelan neighbors arrived at the doors of our church, Providence Bible Church, homeless and without work. None of us knew they were coming, but we said yes. Since then, about 25,000 immigrant neighbors from 635 hometowns in 24 countries have found their way to us, almost all by word of mouth. Together we have helped more than 700 people move into homes, helped file more than 10,000 work permit applications, and walked with more than 1,300 families through asylum.</p>
+  <p>This work is an extension of your ministry. When a mother in our living room holds her family's work permits, when a family is handed the keys to a new apartment, when we pray with a frightened family before court, FCCH is there too, nearly 2,000 miles from Hamilton. Your faithful support is part of what lets us give our days to these families.</p>
+  <p>It was a joy to worship with you in July 2025 and to share what God is doing here. This report looks back over the last four years and, more closely, over this past year. It is full of numbers, but every number is a person. And as the Lord opens new doors, including a growing vision for Venezuela, we are so glad to walk this road with you.</p>
+  <div class="verse">“I thank my God every time I remember you. In all my prayers for all of you, I always pray with joy because of your partnership in the gospel from the first day until now.”<cite>Philippians 1:3–5</cite></div>
+  <div class="sig">
+    <p style="margin:0">With love and deep gratitude,</p>
+    <div class="names">Juan and Courtney Peña</div>
+    <p class="muted" style="font-size:10pt;margin:0">Your missionaries to Denver since 2008 · Co-founders of Providence Bible Church</p>
+  </div>
+</section>
+
+<!-- 3. FOUR YEARS AT A GLANCE -->
+<section id="glance" class="page">
+  <div class="eyebrow">December 2022 – November 2026</div>
+  <h2>Four years at a glance</h2>
+  <p class="lead">Each number below is a family, a story, a yes.</p>
+  <div class="stats">
+    <div class="stat"><div class="n clay">25,000</div><div class="l">immigrant neighbors served</div><div class="m">Almost all came because a friend or relative told them, “Go to Providence. They will help you.”</div></div>
+    <div class="stat"><div class="n">635</div><div class="l">hometowns in 24 countries</div><div class="m">Including every one of Venezuela's 23 states and its Capital District.</div></div>
+    <div class="stat"><div class="n">700+</div><div class="l">people housed in 100+ apartments</div><div class="m">Keys handed to families who had been without a home for more than a year.</div></div>
+    <div class="stat"><div class="n">10,000+</div><div class="l">work permit applications</div><div class="m">The right to work and provide for their families, prepared with them for free.</div></div>
+    <div class="stat"><div class="n">1,500</div><div class="l">TPS applications</div><div class="m">Protection from deportation, prepared at kitchen tables, apartment by apartment.</div></div>
+    <div class="stat"><div class="n">1,300+</div><div class="l">families helped with asylum</div><div class="m">Walked through USCIS and the immigration court, step by step.</div></div>
+    <div class="stat wide"><div class="n">Nearly $13 million</div><div class="l">saved by families in filing fees and legal costs</div><div class="m">Money that stayed in the pockets of families who needed it for rent, groceries and their children.</div></div>
+  </div>
+  <p class="serif" style="font-size:30px;line-height:1.2;margin-top:34px">“Can we move this rock? If we can, we say yes.”</p>
+  <p class="muted" style="font-size:10pt">The question we ask every time a neighbor walks through our door.</p>
+</section>
+
+<!-- 4. VENEZUELA -->
+<section id="venezuela" class="page">
+  <div class="eyebrow">Where our neighbors come from</div>
+  <h2>Every corner of Venezuela</h2>
+  <p>Most of the neighbors God has sent us are from Venezuela: <strong>274 hometowns</strong>, from the biggest cities to small towns in Amazonas and Delta Amacuro, in <strong>every one of its 23 states and the Capital District</strong>. Colombia comes next, with <strong>148 hometowns</strong> in 26 of its 32 departments, plus Bogotá. Families have also come from Peru, Mexico, Ecuador, Nicaragua, Honduras, Guatemala and beyond.</p>
+  <figure class="photo" style="margin:10px -0.3in 6px"><img src="../assets/map-venezuela.jpg" alt="Map of Venezuela with circles sized by the number of people served from each hometown"></figure>
+  <p class="muted" style="font-size:9.5pt">Each circle is a hometown; larger circles mean more people we have walked with from that place.</p>
+  <div class="verse">“The foreigner residing among you must be treated as your native-born. Love them as yourself, for you were foreigners in Egypt.”<cite>Leviticus 19:34</cite></div>
+</section>
+
+<!-- 5. SEASONS 1 & 2 -->
+<section id="story" class="page">
+  <div class="eyebrow">Our story</div>
+  <h2>Three seasons of saying yes</h2>
+  <p class="lead">Our logo is a roof over three stones. Each stone is one season of this ministry. In each one, we have tried to do the same thing: see what our neighbors need most, and love them there.</p>
+  <div class="season">
+    <div class="tag">Roofs<small>2022 – 2023</small></div>
+    <div>
+      <p>When those first 60 neighbors arrived, thousands more were filling Denver's shelters every week. So we focused on homes. We filled out apartment applications, covered security deposits, hauled furniture and stocked kitchens. It was exhausting, and it was pure joy: there is nothing like driving a family from a shelter, with everything they own in a bag, to an apartment with the beds made and food in the kitchen, and handing them the keys.</p>
+      <p>By the end of that season, more than 700 people had moved into more than 100 apartments across our city, and in every one of those homes, a friendship began.</p>
+    </div>
+  </div>
+  <div class="season">
+    <div class="tag">Protection<small>2023 – 2025</small></div>
+    <div>
+      <p>In the fall of 2023, we learned that many of the families we loved qualified for Temporary Protected Status, which protects people from deportation and opens the door to a work permit. But paralegals were charging about $2,000 a person, which is $6,000 for a single mom with two kids. So we taught ourselves how to help, built a simple mobile office, and went apartment by apartment. We helped 1,500 neighbors apply for TPS, for free.</p>
+      <p>In 2024 the work outgrew what any of us could do on the side. In a step of costly, expensive love, Juan left his role at CrossPurpose, a job he dearly loved, and our family chose to live on Courtney's salary so he could give himself fully to our immigrant neighbors. That same year we opened free legal clinics in our church building. From March through October we were open every day, and by the end of the year about 1,000 people a week were coming through our doors. Our promise never changed: no appointment, nobody turned away, and <em>we'll be the last ones to leave the building.</em></p>
+    </div>
+  </div>
+  <figure class="photo" style="margin-top:4px"><img src="../assets/photos/16-christmas-party-v2.jpg" alt="" style="aspect-ratio:16/5.4;object-fit:cover"><figcaption>Our Christmas party with families we have walked with, many of whom first came through our clinics.</figcaption></figure>
+</section>
+
+<!-- 6. SEASON 3 -->
+<section id="presence" class="page">
+  <div class="season" style="margin-top:6px">
+    <div class="tag" style="color:var(--clay)">Presence<small>2025 – today</small></div>
+    <div>
+      <p>In early 2025, everything changed. The CBP One parole program ended, and the work permits so many of our friends had worked hard for were no longer valid. Protections were taken away, enforcement grew, and fear settled over our community.</p>
+      <p>We didn't step back. We moved closer. The practical help never stopped: when CBP One ended, we learned asylum, and we have now walked with more than 1,300 families as they filed. But this season has a new weight. Our work moved into our home, and today more than 25,000 neighbors in our city have our address and know they can come without an appointment. Because the door is open, everything shows up in our living room: a mother whose husband was detained this morning, children who are scared, a family preparing for court tomorrow, a wife whose husband has been deported and who now needs to find a way home.</p>
+      <p>So we do both. We prepare the application <em>and</em> we sit with the mother who is afraid. We file the court motion <em>and</em> we pray with the family before the hearing. We can't fix most of what brings people to our door. Justice is slow, and the systems are bigger than we are. But we have learned this: <strong>if justice is slow, care must be immediate.</strong></p>
+    </div>
+  </div>
+  <div class="verse" style="margin-top:4px">“I was a stranger and you invited me in.”<cite>Matthew 25:35</cite></div>
+  <p>As your missionaries, we have always felt called to move toward the margins, where Jesus himself went. He was born without shelter, lived as a refugee in Egypt, and placed himself among the poor and the suffering. That is why we believe the Church does not come from the left or the right. It comes from the bottom, from the places where people are hurting most. Our calling in this season is simple: go where the fear is, keep moving every rock we can, and make sure no one faces injustice alone.</p>
+  <figure class="photo" style="margin-top:12px"><img src="../assets/photos/17-img8644.jpg" alt="Families waiting in the living room while the team prepares applications" style="aspect-ratio:16/7.6;object-fit:cover;object-position:50% 40%"><figcaption>A weekday in our living room: families wait their turn while we prepare applications at the folding table.</figcaption></figure>
+</section>
+
+<!-- 7. THIS PAST YEAR -->
+<section id="this-year" class="page">
+  <div class="eyebrow">December 2025 – November 2026</div>
+  <h2>This past year</h2>
+  <p class="lead">This year we completed <strong style="color:var(--clay);font-family:'Cormorant Garamond',Georgia,serif;font-size:26px">3,175</strong> filings with and for our neighbors.</p>
+  <div class="bars">
+    <div class="bar"><div class="label">Annual asylum fee payments (EOIR)</div><div class="track"><div class="fill" style="width:78%"></div><div class="val" style="left:calc(78% + 6px)">1,331</div></div></div>
+    <div class="bar"><div class="label">Work permit applications</div><div class="track"><div class="fill" style="width:66.9%"></div><div class="val" style="left:calc(66.9% + 6px)">1,141</div></div></div>
+    <div class="bar"><div class="label">Changes of address</div><div class="track"><div class="fill" style="width:13.6%"></div><div class="val" style="left:calc(13.6% + 6px)">232</div></div></div>
+    <div class="bar"><div class="label">Asylum applications</div><div class="track"><div class="fill" style="width:12%"></div><div class="val" style="left:calc(12% + 6px)">205</div></div></div>
+    <div class="bar"><div class="label">Motions to move court to Denver</div><div class="track"><div class="fill" style="width:11.3%"></div><div class="val" style="left:calc(11.3% + 6px)">192</div></div></div>
+    <div class="bar"><div class="label">Court audio recording requests</div><div class="track"><div class="fill" style="width:4.3%"></div><div class="val" style="left:calc(4.3% + 6px)">74</div></div></div>
+  </div>
+  <h3>Our weekly rhythm</h3>
+  <table class="rhythm">
+    <tr><th>When</th><th>Where</th><th>Who comes</th></tr>
+    <tr><td>Monday, half day</td><td>Bayaud city shelter</td><td>Families living in the shelter</td></tr>
+    <tr><td>Tuesday – Friday, 9 a.m. – 6 p.m.</td><td>The Peña home</td><td>40 – 60 neighbors a day, no appointment needed</td></tr>
+    <tr><td>Sunday, 2 – 6 p.m.</td><td>Providence Bible Church, after service</td><td>50 – 70 people, served entirely by 8 volunteers</td></tr>
+  </table>
+  <h3>Also this year</h3>
+  <ul class="stones">
+    <li>On most weeks, <strong>3 to 5 families</strong> came to us because a loved one had been detained.</li>
+    <li>About <strong>90% of the people we serve</strong> use Providence's mailing address so their USCIS and court mail is safe. We open each letter with the family and explain what it means.</li>
+    <li>We began serving on Mondays at a city shelter, first with the Salvation Army and then at Bayaud.</li>
+    <li>Families returning home, and parents of U.S.-citizen babies needing passports, found help every week.</li>
+  </ul>
+</section>
+
+<!-- 8. OPEN DOOR PHOTOS -->
+<section id="week" class="page">
+  <div class="eyebrow">An open door</div>
+  <h2>What a normal week looks like</h2>
+  <p>Families wait on our couches while we work through their cases. Little ones play at our feet. Work permits arrive at the church mailbox, and we get to hand them to families who can finally work legally. On Mondays, we bring the same care to families at the shelter.</p>
+  <div class="grid g3" style="margin-top:12px">
+    <figure><img src="../assets/photos/02-living-room-peekaboo.jpg" alt=""><figcaption>Peekaboo while we prepare a family's filing</figcaption></figure>
+    <figure><img src="../assets/photos/05-work-permits-arrived.jpg" alt=""><figcaption>Work permits arriving at our church's address</figcaption></figure>
+    <figure><img src="../assets/photos/06-work-permit-celebration.jpg" alt="" style="object-position:50% 20%"><figcaption>A mother celebrates her family's permits</figcaption></figure>
+    <figure><img src="../assets/photos/03-bayaud-shelter.jpg" alt=""><figcaption>With families at the Bayaud city shelter</figcaption></figure>
+    <figure><img src="../assets/photos/04-shelter-work-permits.jpg" alt="" style="object-position:50% 12%"><figcaption>Work permits arrive at the shelter</figcaption></figure>
+    <figure><img src="../assets/photos/07-work-permit-outside-home.jpg" alt=""><figcaption>Another permit opened and explained</figcaption></figure>
+  </div>
+  <div class="verse">“Let us not become weary in doing good, for at the proper time we will reap a harvest if we do not give up.”<cite>Galatians 6:9</cite></div>
+</section>
+
+<!-- 9. DETENTION & HOME -->
+<section id="hard-places" class="page">
+  <div class="eyebrow">Walking with families in hard places</div>
+  <h2>Detention, court and the road home</h2>
+  <div class="two-col">
+    <div>
+      <h3 style="margin-top:0">When a loved one is detained</h3>
+      <p>Every week, families come to our door after a husband, father or son has been detained. We explain what is happening and what they can do next, sit with them in their grief, and connect them the same day with partner nonprofits and attorneys. And when someone comes home, we celebrate together on our patio.</p>
+      <h3>Planning for the worst</h3>
+      <p>We help parents make an emergency plan in case a mother or father is deported: who will care for the children, how the family will reunite, digital copies of important documents, and powers of attorney. This year, <strong>more than 60 families</strong> completed these plans.</p>
+      <h3>Passports for U.S.-citizen babies</h3>
+      <p>We help parents apply, take the photos, and prepare notarized consent when one parent has been deported.</p>
+    </div>
+    <div>
+      <h3 style="margin-top:0">Returning home with dignity</h3>
+      <p>Every week, families come who are ready to go home, often because a husband has been deported. This year we helped <strong>more than 12 families</strong> reunite or return to Venezuela, Colombia and Peru. We help them get a <em>salvoconducto</em> (an emergency travel document), buy tickets and plan the trip.</p>
+      <p>For Venezuelan families, the trip runs by bus from Denver to Miami. Our volunteers along the route meet them with food at every transfer. In Miami, volunteers host them for a night and walk them all the way to the airport gate. We call it our <strong>Underground Railroad home</strong>.</p>
+      <h3>Keeping court dates</h3>
+      <p>A missed hearing means an automatic deportation order. So we help families move their cases to Denver, keep their addresses current, and prepare them before court. When an out-of-state court didn't answer, we helped families make emergency trips to Orlando, Chicago and Memphis so they would not be ordered deported.</p>
+    </div>
+  </div>
+  <figure class="photo" style="margin-top:8px"><img src="../assets/photos/08-release-celebration.jpg" alt="" style="aspect-ratio:16/6.9;object-fit:cover;object-position:50% 85%"><figcaption>Neighbors and families share a meal on our patio to celebrate a release from detention.</figcaption></figure>
+</section>
+
+<!-- 10. RELATIONSHIPS -->
+<section id="together" class="page">
+  <div class="eyebrow">More than a case</div>
+  <h2>We do life together</h2>
+  <p>Our legal work rests on friendships that last long after a case is filed. We go to birthday parties, quinceañeras and graduations. We cheer at soccer games and school events, visit friends in the hospital, and went camping together this summer. And when families lose a loved one to violence, we walk with them through the funeral and the grief that follows. These relationships are how we hear what families really need, and why they trust us with the hardest moments of their lives.</p>
+  <div class="verse">“Rejoice with those who rejoice; mourn with those who mourn.”<cite>Romans 12:15</cite></div>
+  <div class="grid g3">
+    <figure><img src="../assets/photos/18-praying-living-room.jpg" alt="" style="object-position:50% 45%"><figcaption>Praying with a family in our living room</figcaption></figure>
+    <figure><img src="../assets/photos/11-graduation.jpg" alt=""><figcaption>An elementary school graduation</figcaption></figure>
+    <figure><img src="../assets/photos/12-soccer-game.jpg" alt=""><figcaption>On the sidelines at a soccer game</figcaption></figure>
+    <figure><img src="../assets/photos/13-camping-trip.jpg" alt=""><figcaption>Our summer camping trip</figcaption></figure>
+    <figure><img src="../assets/photos/14-funeral-meal.jpg" alt=""><figcaption>Cooking together after a funeral</figcaption></figure>
+    <figure><img src="../assets/photos/15-watch-party.jpg" alt=""><figcaption>A soccer watch party on our patio</figcaption></figure>
+  </div>
+</section>
+
+<!-- 11. PEOPLE & CRAZY YES -->
+<section id="hands" class="page">
+  <div class="eyebrow">The body at work</div>
+  <h2>Many hands, one body</h2>
+  <p class="lead">This ministry has never been the work of one family. In Denver, it is carried by our church and by neighbors from churches across our city.</p>
+  <h3>Our Sunday clinic</h3>
+  <p>Every Sunday from 2 to 6 p.m., after service, the Providence building becomes a legal clinic. It is run entirely by volunteers, with no paid staff: eight people give four hours every week, serving 50 to 70 neighbors. Many of them are immigrants we once served, now serving others, just as someone once passed the love of Jesus on to us.</p>
+  <h3>The Crazy Yes Group</h3>
+  <p>More than 100 neighbors from our church and city receive a weekly email with the needs families share in our living room, and they say yes: groceries for a single mom between jobs, up to $1,500 raised so a family whose husband was deported could fly home, and donated cars so parents can get to work.</p>
+  <figure class="photo" style="margin-top:10px"><img src="../assets/photos/09-donated-car.jpg" alt="" style="aspect-ratio:16/8;object-fit:cover"><figcaption>Crazy Yes Group members hand over a donated car to a family we serve.</figcaption></figure>
+</section>
+
+<!-- 12. THANK YOU -->
+<section id="thanks" class="page">
+  <div class="eyebrow">Thank you, FCCH</div>
+  <h2>What your partnership makes possible</h2>
+  <p class="lead">Everything in this report rests on churches that have sent us and stayed with us. FCCH has been one of them since 2008.</p>
+  <ul class="stones">
+    <li><strong>Eighteen years of faithful support.</strong> Since 2008, your missions support has helped our family give our lives to ministry among immigrants in Denver, through every season.</li>
+    <li><strong>Your prayers,</strong> which have carried us through the hardest days in our living room.</li>
+    <li><strong>Your welcome.</strong> Worshiping with you in July 2025 and sharing about this work after the service was a highlight of our year.</li>
+  </ul>
+  <h3>How you can pray with us</h3>
+  <ul class="stones">
+    <li>For <strong>wisdom, protection and endurance</strong> as our home and church continue to be a place of shelter and refuge, where dozens of neighbors come for help on many days.</li>
+    <li>For <strong>families facing deportation and separation</strong>, especially children whose parents are detained or deported, that they would make wise plans, stay together when possible, and know the nearness of Christ in crisis.</li>
+    <li>For <strong>discernment</strong> as the vision for Venezuela takes shape.</li>
+  </ul>
+  <p>We would be glad to record a video update for the congregation, to visit again, or to sit down with the Missions Committee to talk about this next season of ministry.</p>
+  <figure class="photo" style="margin-top:14px"><img src="../assets/photos/01-living-room-christmas.jpg" alt="Families waiting for help in the Peña living room at Christmas" style="aspect-ratio:16/8.3;object-fit:cover;object-position:50% 45%"><figcaption>Christmastime in our living room, where families come for help every week.</figcaption></figure>
+</section>
+
+<!-- 13. LOOKING AHEAD -->
+<section id="ahead" class="page">
+  <div class="eyebrow">Looking ahead</div>
+  <h2>The road ahead</h2>
+  <p class="lead">Many roads have brought our neighbors to Denver. We sense that God may be preparing some of them to carry the gospel back down those roads.</p>
+  <h3>In Denver</h3>
+  <p>The need has not slowed. Families still face work permit backlogs, out-of-state court dates, detention and painful decisions about going home. In 2027 we plan to keep our home and our church open as a place of shelter and refuge, helping with asylum, work permits, immigration court and urgent humanitarian needs. We also hope to add a part-time coordinator for the Crazy Yes Group, so more neighbors can say yes to more families.</p>
+  <h3>A growing vision for Venezuela</h3>
+  <p>We have walked with families from every state in Venezuela. Now we are praying about where God would have us establish a ministry base there. In the coming year, we hope to:</p>
+  <ul class="stones">
+    <li><strong>Visit Venezuela</strong> several times, including areas affected by this June's earthquakes, to look for a home for a long-term ministry base.</li>
+    <li><strong>Develop a clear 10-year ministry plan</strong> to share with FCCH and our other partners: to plant a church, start a Christian school, open a clinic, and build a seminary or training center to serve as the headquarters for ministry in Venezuela.</li>
+    <li><strong>Recruit and train a team of Venezuelan immigrants</strong> who want to return as missionaries to their own communities, neighborhoods and families.</li>
+  </ul>
+  <p>Over the next 18 months, we hope to have a solid plan, a recruited team, theological and practical missionary training underway, and the beginning of a broader effort to invite churches into this work.</p>
+  <figure class="photo" style="margin:4px -0.2in 0"><img src="../assets/map-venezuela.jpg" alt="Map of the Venezuelan hometowns of families we have served" style="aspect-ratio:16/4.3;object-fit:cover;object-position:50% 4%"><figcaption style="padding-left:0.2in">The Venezuelan hometowns of the families we have walked with. We are praying about where God would have us begin.</figcaption></figure>
+  <div class="verse">“Therefore go and make disciples of all nations.”<cite>Matthew 28:19</cite></div>
+</section>
+
+
+<!-- 14. CLOSING: MISSIONARY TEAM -->
+<section id="team" class="page dark closing">
+  <div class="eyebrow">Your missionaries in Denver</div>
+  <h2 style="font-size:44px">Our missionary team</h2>
+  <p style="color:#E4DED1;font-size:11.5pt;max-width:5.6in">Serving our immigrant neighbors in Denver, with Providence Bible Church as our home church and First Congregational Church of Hamilton as our partners since 2008.</p>
+  <div class="teamphoto has-photo"><img src="../assets/photos/19-team.jpg" alt="Our missionary team: Juan, Courtney, Heidi, Yonny and Álvaro"></div>
+  <div class="names">Juan · Courtney · Heidi · Yonny · Álvaro</div>
+  <div class="role">Rooted with Roofs, a ministry of Providence Bible Church</div>
+  <div class="closeverse">“Here am I. Send me!”<cite>Isaiah 6:8</cite></div>
+  <div class="backfoot"><img src="../assets/rwr-logo-horizontal-reversed.png" alt="Rooted with Roofs"><span>A ministry of Providence Bible Church · Denver, Colorado</span></div>
+</section>
+</body>
+</html>
